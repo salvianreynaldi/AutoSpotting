@@ -226,8 +226,8 @@ func (a *autoScalingGroup) replaceOnDemandInstanceWithSpot(
 	minSize, maxSize := *a.MinSize, *a.MaxSize
 	desiredCapacity := *a.DesiredCapacity
 
-	// temporarily increase AutoScaling group in case it's of static size
-	if minSize == maxSize {
+	// temporarily increase AutoScaling group in case its desired capacity is its max size
+	if desiredCapacity == maxSize {
 		logger.Println(a.name, "Temporarily increasing MaxSize")
 		a.setAutoScalingMaxSize(maxSize + 1)
 		defer a.setAutoScalingMaxSize(maxSize)
